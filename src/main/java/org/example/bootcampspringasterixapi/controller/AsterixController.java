@@ -1,29 +1,51 @@
 package org.example.bootcampspringasterixapi.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.example.bootcampspringasterixapi.repository.CharacterRepository;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import org.example.bootcampspringasterixapi.model.Character;
+import org.example.bootcampspringasterixapi.model.AsterixCharacter;
 
 @RestController
-@RequestMapping("/asterix")
+@RequestMapping("/asterix/characters")
 public class AsterixController {
 
-    @GetMapping("/characters")
-    public List<Character> getCharacters() {
-        return List.of(
-                new Character("1", "Asterix", 35, "Warrior"),
-                new Character("2", "Obelix", 35, "Supplier"),
-                new Character("3", "Miraculix", 60, "Druid"),
-                new Character("4", "Majestix", 60, "Chief"),
-                new Character("5", "Troubadix", 25, "Bard"),
-                new Character("6", "Gutemine", 35, "Chiefs Wife"),
-                new Character("7", "Idefix", 5, "Dog"),
-                new Character("8", "Geriatrix", 70, "Retiree"),
-                new Character("9", "Automatix", 35, "Smith"),
-                new Character("10", "Grockelix", 35, "Fisherman")
-        );
+    private final CharacterRepository characterRepository;
+
+    public AsterixController(CharacterRepository characterRepository) {
+        this.characterRepository = characterRepository;
+    }
+
+    @GetMapping
+    public List<AsterixCharacter> getCharacters() {
+        return this.characterRepository.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public AsterixCharacter getCharactersById(@PathVariable String id) {
+        return this.characterRepository.findById(id).orElse(null);
+    }
+
+    @PostMapping
+    public AsterixCharacter addCharacter(@RequestBody AsterixCharacter asterixCharacter) {
+        return this.characterRepository.save(asterixCharacter);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteCharacter(@PathVariable String id) {
+        this.characterRepository.deleteById(id);
+    }
+
+    @PutMapping("/{id}")
+    public AsterixCharacter updateCharacter(@PathVariable String id,  @RequestBody AsterixCharacter asterixCharacter) {
+        AsterixCharacter asterixCharacterOld = this.characterRepository.findById(id).orElse(null);
+        if (asterixCharacterOld != null) {
+            this.characterRepository.save(asterixCharacterOld
+                    .withName(asterixCharacter.name())
+                    .withAge(asterixCharacter.age())
+                    .withProfession(asterixCharacter.profession())
+            );
+        }
+        return asterixCharacter;
     }
 }
