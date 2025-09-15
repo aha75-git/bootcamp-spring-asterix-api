@@ -48,4 +48,18 @@ public class AsterixController {
         }
         return asterixCharacter;
     }
+
+    @GetMapping("/search")
+    public List<AsterixCharacter> getCharactersByProfession(@RequestParam String profession) {
+        return this.characterRepository.findByProfession(profession);
+    }
+
+    @GetMapping("/averageage/{profession}")
+    public double getAverageAgeByProfession (@PathVariable String profession) {
+        return this.characterRepository.findByProfession(profession)
+                .stream()
+                .mapToDouble(AsterixCharacter::age)
+                .average()
+                .orElse(0);
+    }
 }
