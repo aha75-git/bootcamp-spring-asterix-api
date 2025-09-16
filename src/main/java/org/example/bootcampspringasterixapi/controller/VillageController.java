@@ -1,5 +1,6 @@
 package org.example.bootcampspringasterixapi.controller;
 
+import org.example.bootcampspringasterixapi.model.Pet;
 import org.example.bootcampspringasterixapi.model.Village;
 import org.example.bootcampspringasterixapi.service.VillageService;
 import org.springframework.http.HttpStatus;
@@ -42,5 +43,14 @@ public class VillageController {
     public ResponseEntity<Void> deleteVillage(@PathVariable String id) {
         villageService.deleteVillage(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Village> updateVillage(@PathVariable String id, @RequestBody Village village) {
+        Village villageSaved = this.villageService.updateVillage(id, village);
+        if (villageSaved != null) {
+            return new ResponseEntity<>(villageSaved, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

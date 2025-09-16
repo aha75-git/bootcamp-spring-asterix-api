@@ -29,4 +29,14 @@ public class PetService {
     public void deletePet(String id) {
         petRepository.deleteById(id);
     }
+
+    public Pet updatePet(String id, Pet pet) {
+        Pet petOld = this.petRepository.findById(id).orElse(null);
+        if  (petOld != null) {
+            return this.petRepository.save(petOld
+                    .withName(pet.name())
+                    .withType(pet.type()));
+        }
+        return null;
+    }
 }

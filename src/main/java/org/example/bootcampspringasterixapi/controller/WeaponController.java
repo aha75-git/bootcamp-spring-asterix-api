@@ -1,5 +1,6 @@
 package org.example.bootcampspringasterixapi.controller;
 
+import org.example.bootcampspringasterixapi.model.Village;
 import org.example.bootcampspringasterixapi.model.Weapon;
 import org.example.bootcampspringasterixapi.service.WeaponService;
 import org.springframework.http.HttpStatus;
@@ -42,5 +43,14 @@ public class WeaponController {
     public ResponseEntity<Void> deleteWeapon(@PathVariable String id) {
         weaponService.deleteWeapon(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Weapon> updatePet(@PathVariable String id, @RequestBody Weapon weapon) {
+        Weapon weaponSaved = this.weaponService.updateWeapon(id, weapon);
+        if (weaponSaved != null) {
+            return new ResponseEntity<>(weaponSaved, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

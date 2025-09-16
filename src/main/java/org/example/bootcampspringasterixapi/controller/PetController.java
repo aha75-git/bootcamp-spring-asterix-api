@@ -33,14 +33,22 @@ public class PetController {
         Pet pet = petService.getPetById(id);
         if (pet != null) {
             return new ResponseEntity<>(pet, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePet(@PathVariable String id) {
         petService.deletePet(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Pet> updatePet(@PathVariable String id, @RequestBody Pet pet) {
+        Pet petSaved = this.petService.updatePet(id, pet);
+        if (petSaved != null) {
+            return new ResponseEntity<>(petSaved, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

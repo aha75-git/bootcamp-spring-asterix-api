@@ -1,5 +1,6 @@
 package org.example.bootcampspringasterixapi.service;
 
+import org.example.bootcampspringasterixapi.model.Pet;
 import org.example.bootcampspringasterixapi.model.Village;
 import org.example.bootcampspringasterixapi.repository.VillageRepository;
 import org.springframework.stereotype.Service;
@@ -27,5 +28,16 @@ public class VillageService {
 
     public void deleteVillage(String id) {
         villageRepository.deleteById(id);
+    }
+
+    public Village updateVillage(String id, Village village) {
+        Village villageOld = this.villageRepository.findById(id).orElse(null);
+        if  (villageOld != null) {
+            return this.villageRepository.save(villageOld
+                    .withName(village.name())
+                    .withCountry(village.country())
+                    .withLocation(village.location()));
+        }
+        return null;
     }
 }

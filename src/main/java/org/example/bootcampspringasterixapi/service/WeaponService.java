@@ -1,5 +1,6 @@
 package org.example.bootcampspringasterixapi.service;
 
+import org.example.bootcampspringasterixapi.model.Village;
 import org.example.bootcampspringasterixapi.model.Weapon;
 import org.example.bootcampspringasterixapi.repository.WeaponRepository;
 import org.springframework.stereotype.Service;
@@ -28,5 +29,15 @@ public class WeaponService {
 
     public void deleteWeapon(String id) {
         weaponRepository.deleteById(id);
+    }
+
+    public Weapon updateWeapon(String id, Weapon weapon) {
+        Weapon weaponOld = this.weaponRepository.findById(id).orElse(null);
+        if  (weaponOld != null) {
+            return this.weaponRepository.save(weaponOld
+                    .withName(weapon.name())
+                    .withType(weapon.type()));
+        }
+        return null;
     }
 }
