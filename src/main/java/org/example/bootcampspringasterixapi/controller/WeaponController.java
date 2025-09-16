@@ -1,6 +1,5 @@
 package org.example.bootcampspringasterixapi.controller;
 
-import org.example.bootcampspringasterixapi.model.Village;
 import org.example.bootcampspringasterixapi.model.Weapon;
 import org.example.bootcampspringasterixapi.service.WeaponService;
 import org.springframework.http.HttpStatus;

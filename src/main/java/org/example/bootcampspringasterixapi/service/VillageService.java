@@ -1,6 +1,5 @@
 package org.example.bootcampspringasterixapi.service;
 
-import org.example.bootcampspringasterixapi.model.Pet;
 import org.example.bootcampspringasterixapi.model.Village;
 import org.example.bootcampspringasterixapi.repository.VillageRepository;
 import org.springframework.stereotype.Service;
