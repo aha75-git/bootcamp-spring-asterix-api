@@ -33,7 +33,7 @@ public class AsterixCharacterServiceTest {
     }
 
     @Test
-    void getCharactersById() {
+    void getCharactersById_shouldReturnAsterixCharacter_whenCalledWithValidInputId() {
         // GIVEN
         AsterixCharacter asterixCharacter = new AsterixCharacter("1", "Asterix", 35, "Warrior");
         CharacterRepository mockRepository = mock(CharacterRepository.class);
@@ -51,7 +51,7 @@ public class AsterixCharacterServiceTest {
     }
 
     @Test
-    void addCharacter() {
+    void addCharacter_shouldAddAsterixCharacter_whenCalledWithValidInput() {
         // GIVEN
         AsterixCharacter asterixCharacter = new AsterixCharacter("1", "Asterix", 35, "Warrior");
         AsterixCharacterDto asterixCharacterDto = new AsterixCharacterDto("Asterix", 35, "Warrior");
@@ -71,7 +71,7 @@ public class AsterixCharacterServiceTest {
     }
 
     @Test
-    void deleteCharacter() {
+    void deleteCharacter_shouldDeleteAsterixCharacter_whenCalledWithValidInputId() {
         // GIVEN
         AsterixCharacter asterixCharacter = new AsterixCharacter("1", "Asterix", 35, "Warrior");
         CharacterRepository mockRepository = mock(CharacterRepository.class);
@@ -86,7 +86,7 @@ public class AsterixCharacterServiceTest {
     }
 
     @Test
-    void updateCharacter() {
+    void updateCharacter_shouldUpdateAsterixCharacter_whenCalledWithValidInput() {
         // GIVEN
         String id = "1";
         AsterixCharacter asterixCharacterExist = new AsterixCharacter(id, "AsterixOld", 22, "Warrior Old");
@@ -109,7 +109,7 @@ public class AsterixCharacterServiceTest {
     }
 
     @Test
-    void getCharactersByProfession() {
+    void getCharactersByProfession_shouldReturnAsterixCharacters_whenCalledWithValidInputProfession() {
         // GIVEN
         AsterixCharacter asterixCharacter1 = new AsterixCharacter("1", "Asterix", 35, "Warrior");
         AsterixCharacter asterixCharacter2 = new AsterixCharacter("2", "Obelix", 33, "Supplier");

@@ -1,7 +1,10 @@
 package org.example.bootcampspringasterixapi.controller;
 
 import org.example.bootcampspringasterixapi.dto.AsterixCharacterDto;
+import org.example.bootcampspringasterixapi.model.Pet;
 import org.example.bootcampspringasterixapi.service.AsterixCharacterService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +26,12 @@ public class AsterixController {
     }
 
     @GetMapping("/{id}")
-    public AsterixCharacter getCharactersById(@PathVariable String id) {
-        return this.asterixCharacterService.getCharactersById(id);
+    public ResponseEntity<AsterixCharacter> getCharactersById(@PathVariable String id) {
+        AsterixCharacter asterixCharacter = this.asterixCharacterService.getCharactersById(id);
+        if (asterixCharacter != null) {
+            return new ResponseEntity<>(asterixCharacter, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping
@@ -33,8 +40,9 @@ public class AsterixController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteCharacter(@PathVariable String id) {
+    public ResponseEntity<Void> deleteCharacter(@PathVariable String id) {
         this.asterixCharacterService.deleteCharacter(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("/{id}")
